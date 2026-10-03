@@ -32,7 +32,7 @@ function Contact() {
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const fd = Object.fromEntries(new FormData(e.currentTarget));
-    if (fd.website) return; // honeypot
+    if (fd['website']) return; // honeypot
     const r = schema.safeParse(fd);
     if (!r.success) {
       setErrors(Object.fromEntries(r.error.issues.map((i) => [i.path[0], i.message])));
@@ -67,7 +67,7 @@ function Contact() {
           <div>
             <label htmlFor="message" className="mb-1 block text-sm">Message</label>
             <textarea id="message" name="message" rows={5} className={field} />
-            {errors.message && <p className="mt-1 text-xs text-destructive">{errors.message}</p>}
+            {errors['message'] && <p className="mt-1 text-xs text-destructive">{errors['message']}</p>}
           </div>
           <button className="w-full rounded-lg bg-primary py-2.5 text-sm font-medium text-primary-foreground">Send message</button>
           {sent && <p className="text-sm text-primary">Your email app should open with the message ready to send.</p>}
